@@ -1,23 +1,27 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-int a[17],s,n,ans;
-bool can[3333333];
-void f(int here,int sum){
-    if(here == n) {
-        //cout<<sum<<'\n';
-        if(sum > 0) can[sum] = 1;
-        return;
+int n,arr[14],_max,ans;
+bool check[4000001];
+void dfs(int sum,int i){
+    if(i==n+1){
+        if(sum>0) check[sum]=true;
+        return ;
     }
-    f(here+1,sum+a[here+1]);
-    f(here+1,sum);
-    f(here+1,sum-a[here+1]);
+    dfs(sum-arr[i],i+1);
+    dfs(sum+arr[i],i+1);
+    dfs(sum,i+1);
 }
 int main(){
-    ios::sync_with_stdio(0);cin.tie(0);
     cin>>n;
-    for(int i=1; i<=n; i++) cin>>a[i],s+=a[i];
-    f(0,0);
-    for(int i=1; i<=s; i++) ans += !can[i];
-    cout<<ans<<'\n';
+    for(int i=1; i<=n; i++){
+        cin>>arr[i];
+        _max+=arr[i];
+    }
+    dfs(0,1);
+    for(int i=1; i<=_max; i++){
+        if(!check[i]) ans++;
+    }
+    cout<<ans;
 }
+

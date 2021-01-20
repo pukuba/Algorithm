@@ -1,23 +1,29 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
 
 using namespace std;
-int n,m,ans;
-vector<int> adj[1010];
-bool check[1010];
-void dfs(int here){
-	check[here] = 1;
-	for(int next : adj[here]) if(!check[next]) dfs(next);
+vector<int> a[1001];
+bool check[1001];
+void dfs(int node){
+	check[node]=1;
+	for(int i=0; i<a[node].size(); i++){
+		int next = a[node][i];
+		if(check[next]==0){
+			dfs(next);
+		}
+	}
 }
 int main(){
-	ios_base::sync_with_stdio(0);cin.tie(nullptr);
+	int n,m,ans=0; 
 	cin>>n>>m;
-	for(int i=1,x,y; i<=m; i++){
-		cin>>x>>y;
-		adj[x].push_back(y);
-		adj[y].push_back(x);
-	}	
+	for(int i=1; i<=m; i++){
+		int u,v;
+		cin>>u>>v;
+		a[u].push_back(v);
+		a[v].push_back(u);
+	}
 	for(int i=1; i<=n; i++){
-		if(!check[i]){
+		if(check[i]==false){
 			dfs(i);
 			ans++;
 		}

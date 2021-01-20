@@ -1,22 +1,24 @@
-#include <bits/stdc++.h>
+#include <iostream>
 
 using namespace std;
-vector<int> v;
+
+int a[10];
 int n,m;
-void dfs(int here,int use){
-	if(use == m){
-		for(int i : v) cout<<i<<' ';
-		cout<<'\n';
-		return;
-	}
-	for(int i = 1; i<=n; i++){
-		v.push_back(i);
-		dfs(i,use+1);
-		v.pop_back();
-	}
+void dfs(int go){
+    if(go==m){
+        for(int i=0; i<m; i++){
+            cout<<a[i]<<' ';
+        }
+        cout<<'\n';
+        return;
+    }
+    for(int i=1; i<=n; i++){
+        a[go]=i;
+        dfs(go+1);
+    }
 }
 int main(){
-	ios_base::sync_with_stdio(0);cin.tie(nullptr);
-	cin>>n>>m;
-	dfs(1,0);
+    cin>>n>>m;
+    dfs(0);
+    return 0;
 }

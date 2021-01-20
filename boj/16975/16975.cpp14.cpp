@@ -33,11 +33,11 @@ void update_range(int node,int start,int end,int left,int right,int diff){
     update_range(node*2+1,(start+end>>1)+1,end,left,right,diff);
     tree[node] = tree[node*2] + tree[node*2+1];
 }
-ll sum(int node,int start,int end,int here){
+ll sum(int node,int start,int end,int left,int right){
     update_lazy(node,start,end);
-    if(start > here || end < here) return 0;
-    if(here <= start && end <= here) return tree[node];
-    return sum(node*2,start,start+end>>1,here) + sum(node*2+1,(start+end>>1)+1,end,here);
+    if(start > right || end < left) return 0;
+    if(left <= start && end <= right) return tree[node];
+    return sum(node*2,start,start+end>>1,left,right) + sum(node*2+1,(start+end>>1)+1,end,left,right);
 }
 int main(){
     ios_base::sync_with_stdio(0),cin.tie(nullptr);
@@ -56,7 +56,7 @@ int main(){
         else{
             int go;
             cin>>go;
-            cout<<sum(1,1,n,go)<<'\n';
+            cout<<sum(1,1,n,go,go)<<'\n';
         }
     }
 }

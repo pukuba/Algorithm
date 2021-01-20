@@ -1,18 +1,27 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <string>
+#include <stack>
 
 using namespace std;
-string s;
-int a,b,n;
 int main(){
-	ios_base::sync_with_stdio(0);cin.tie(0);
-	cin>>s;
-	for(int i=0; i<s.size(); i++){
-		if(s.size()-1 != i&& s[i] == '(' && s[i+1] == ')') {
-			i++;
-			a += b;
+	string a;
+	cin>>a;
+	int n=a.size();
+	stack<int> s;
+	int ans=0;
+	for(int i=0; i<n; i++){
+		if(a[i]=='('){
+			s.push(i);
+		}else{
+			if(s.top()+1==i){
+				s.pop();
+				ans+=s.size();
+			}else{
+				s.pop();
+				ans+=1;
+			}
 		}
-		else if(s[i] == '(') b++;
-		else if(s[i] == ')') a++,b--;
 	}
-	cout<<a<<'\n';
+	cout<<ans<<'\n';
+	return 0;
 }

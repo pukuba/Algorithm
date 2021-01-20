@@ -1,15 +1,14 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-int n,sum,m;
+int ans,_max,n;
 int main(){
-    ios_base::sync_with_stdio(0);cin.tie(nullptr);
     cin>>n;
-    for(int i=1; i<=n; i++){
+    while(n--){
         int x;
         cin>>x;
-        m = max(m,x);
-        sum += x;
+        ans+=x;
+        _max=max(_max,x);
     }
-    cout<<sum-m;
+    cout<<ans-_max<<'\n';
 }

@@ -1,10 +1,9 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-int n,parent[100004],m,ans;
-set<int> s;
+int n,parent[100004],m,ans,temp;
 int find(int x){
-    if(x == parent[x]) return x;
+    if(parent[x] == x) return x;
     return parent[x] = find(parent[x]);
 }
 void merge(int a,int b){
@@ -16,10 +15,9 @@ int main(){
     for(int i=1; i<=n; i++) parent[i] = i;
     for(int i=1,x; i<=m; i++){
         cin>>x;
-        int check = find(x);
-        if(!check) break;
+        if(!find(x)) break;
         ans++;
-        merge(check,check-1);
+        merge(find(x),find(x)-1);
     }
     cout<<ans<<'\n';
 }
